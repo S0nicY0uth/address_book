@@ -16,6 +16,13 @@ class AddressBook
     c = Contact.new(name,number)
     @contacts.push(c)
   end
+  def listContactsByIndex
+    @contacts.each_with_index{|v,i| puts "#{i} #{v.name}" }
+  end
+  def delContactByIndex(i)
+    @contacts.delete_at(i)
+    listContactsByIndex
+  end
 end
 
 class Contact
@@ -34,5 +41,4 @@ ben = Contact.new('Ben',"07809671734")
 dan = Contact.new('Dan',"07809671734")
 amy = Contact.new('Amy',"07809671734")
 book = AddressBook.new([chris,ben,dan,amy])
-book.addNewContact('Steve Gerrard','01785 213052')
-puts book.printContacts
+book.delContactByIndex(2)
