@@ -6,6 +6,16 @@ class AddressBook
   def printContacts
     @contacts.map {|c| c.formatContact}
   end
+  def getContact(name)
+    @contacts.select {|c| c.name == name }
+  end
+  def printContactsByName(name)
+    getContact(name).map{|c| c.formatContact}
+  end
+  def addNewContact(name,number)
+    c = Contact.new(name,number)
+    @contacts.push(c)
+  end
 end
 
 class Contact
@@ -23,5 +33,6 @@ chris = Contact.new('Chris',"07809671734")
 ben = Contact.new('Ben',"07809671734")
 dan = Contact.new('Dan',"07809671734")
 amy = Contact.new('Amy',"07809671734")
-book = AddressBook.new([chris,ben])
+book = AddressBook.new([chris,ben,dan,amy])
+book.addNewContact('Steve Gerrard','01785 213052')
 puts book.printContacts
