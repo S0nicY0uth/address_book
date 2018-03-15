@@ -1,2 +1,2 @@
 # address_book
-A ruby add for storing contacts
+A simple ruby address_book app
