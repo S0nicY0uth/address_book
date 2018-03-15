@@ -23,6 +23,10 @@ class AddressBook
     @contacts.delete_at(i)
     listContactsByIndex
   end
+  def updateContact(index,name,tel)
+    @contacts[index].name = name
+    @contacts[index].tel = tel
+  end
 end
 
 class View
@@ -33,7 +37,7 @@ class View
   def mainMenu
     run = true
     while run
-      puts '1)List All Contacts 2)Search for Contact 3)Add new Contact 4)Delete Contact 5)Quit'
+      puts '1)List All Contacts 2)Search for Contact 3)Add new Contact 4)Update Contact 5)Delete Contact 6)Quit'
       choice = gets.strip.chomp.to_i
       case choice
       when 1
@@ -50,10 +54,20 @@ class View
         @addressbook.addNewContact(name,tel)
       when 4
         @addressbook.listContactsByIndex
+        puts 'which contact would you like to edit?'
+        index = gets.strip.chomp.to_i
+        puts 'please enter the new name'
+        name = gets.strip.chomp.to_s
+        puts 'please enter the new number'
+        tel = gets.strip.chomp.to_s
+        @addressbook.updateContact(index,name,tel)
+        puts @addressbook.printContacts
+      when 5
+        @addressbook.listContactsByIndex
         puts 'which contact would you like to delete?'
         i = gets.strip.chomp.to_i
         @addressbook.delContactByIndex(i)
-      when 5
+      when 6
         run = false
       end
     end
