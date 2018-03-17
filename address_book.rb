@@ -1,7 +1,17 @@
+require 'yaml'
+storage = YAML.load_file('storage.yml')
+puts storage.inspect
+
 class AddressBook
   attr_accessor :contacts
-  def initialize(contacts)
+  def initialize(contacts,storage)
     @contacts = contacts
+    storage.each_with_index {|v,i|
+      name = v["name"]
+      number = v["tel"]
+      c = Contact.new(name,number)
+      @contacts.push(c)
+    }
   end
   def printContacts
     @contacts.map {|c| c.formatContact}
@@ -89,6 +99,6 @@ chris = Contact.new('Chris',"07809671734")
 ben = Contact.new('Ben',"07809671734")
 dan = Contact.new('Dan',"07809671734")
 amy = Contact.new('Amy',"07809671734")
-book = AddressBook.new([chris,ben,dan,amy])
+book = AddressBook.new([chris,ben,dan,amy],storage)
 view = View.new(book)
 view.mainMenu
